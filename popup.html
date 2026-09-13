@@ -17,9 +17,11 @@
   .red { color: #dc2626; } .blue { color: #2563eb; }
   button { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #d4d4d8; background: #fff; cursor: pointer; }
   button.on { background: #111; color: #fff; border-color: #111; }
-  .legend { font-size: 12px; color: #52525b; }
-  .swatch { display: inline-block; width: 26px; border-bottom: 3px wavy red; vertical-align: middle; }
-  .swatch.b { border-bottom-color: blue; }
+  .legend { background: #f4f4f5; border-radius: 8px; padding: 8px 10px; margin-top: 10px; }
+  .legend .lrow { display: flex; gap: 16px; font-size: 12px; font-weight: 600; color: #111; margin-bottom: 4px; }
+  .demo.r { text-decoration: underline wavy #dc2626 1.5px; text-underline-offset: 3px; }
+  .demo.b { text-decoration: underline wavy #2563eb 1.5px; text-underline-offset: 3px; }
+  .legend p { margin: 0; font-size: 11.5px; color: #52525b; }
 </style>
 </head>
 <body>
@@ -35,10 +37,10 @@
     <input type="checkbox" id="toggle" checked />
   </div>
   <button id="clear">Clear ignored words</button>
-  <p class="legend" style="margin-top:10px">
-    <span class="swatch"></span> spelling &nbsp; <span class="swatch b"></span> grammar / punctuation<br/>
-    Hover an underline to see what's wrong — click to pin it, ignore, or add to dictionary.
-  </p>
+  <div class="legend">
+    <div class="lrow"><span class="demo r">spelling</span><span class="demo b">grammar</span></div>
+    <p>Hover an underline to preview — click to fix, ignore, or add to dictionary.</p>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
