@@ -1,0 +1,142 @@
+/* Overlay + underline + suggestion-card styles. Prefix rtg- to avoid site collisions. */
+
+.rtg-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  overflow: hidden !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word;
+  pointer-events: none !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: transparent !important;
+  z-index: 1;
+}
+
+.rtg-backdrop span { color: transparent !important; }
+
+/* PLAN section 8: exact visual design — straight solid lines */
+.rtg-err-spell,
+.error-spelling {
+  text-decoration-line: underline !important;
+  text-decoration-style: solid !important;
+  text-decoration-color: red !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+.rtg-err-grammar,
+.rtg-err-punct,
+.error-grammar {
+  text-decoration-line: underline !important;
+  text-decoration-style: solid !important;
+  text-decoration-color: blue !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+/* contenteditable: errors are clickable */
+[contenteditable="true"] .rtg-err-spell,
+[contenteditable="true"] .rtg-err-grammar,
+[contenteditable="true"] .rtg-err-punct,
+div[contenteditable] .rtg-err-spell,
+div[contenteditable] .rtg-err-grammar,
+div[contenteditable] .rtg-err-punct {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* Native engine override: wherever the browser's own spellcheck still runs,
+   force its curly underlines to our straight solid lines. */
+*::spelling-error {
+  text-decoration-line: underline !important;
+  text-decoration-style: solid !important;
+  text-decoration-color: red !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+*::grammar-error {
+  text-decoration-line: underline !important;
+  text-decoration-style: solid !important;
+  text-decoration-color: blue !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+/* suggestion card (PLAN section 9) */
+.rtg-card {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  min-width: 220px;
+  max-width: 300px;
+  background: #fff !important;
+  color: #111 !important;
+  border: 1px solid #d4d4d8 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22) !important;
+  padding: 10px 12px !important;
+  font: 13px/1.45 -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+.rtg-card-title {
+  font-weight: 700 !important;
+  margin-bottom: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.rtg-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.rtg-dot.red { background: red; }
+.rtg-dot.blue { background: blue; }
+
+.rtg-card-original {
+  color: #71717a !important;
+  text-decoration: line-through !important;
+  margin-bottom: 4px !important;
+}
+
+.rtg-card-suggest {
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+  background: #f4f4f5 !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 7px !important;
+  padding: 6px 8px !important;
+  margin: 4px 0 !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  color: #111 !important;
+}
+
+.rtg-card-suggest:hover { background: #e9e9ec !important; }
+
+.rtg-card-row { display: flex !important; gap: 6px !important; margin-top: 8px !important; }
+
+.rtg-btn {
+  flex: 1 !important;
+  border: 1px solid #d4d4d8 !important;
+  background: #fff !important;
+  border-radius: 7px !important;
+  padding: 5px 8px !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  color: #111 !important;
+}
+
+.rtg-btn.primary { background: #111 !important; color: #fff !important; border-color: #111 !important; }
+.rtg-btn:hover { filter: brightness(0.96); }
+
+.rtg-badge {
+  position: fixed !important;
+  z-index: 2147483646 !important;
+  background: #111 !important;
+  color: #fff !important;
+  font: 11px/1 -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  border-radius: 999px !important;
+  padding: 4px 8px !important;
+  pointer-events: none !important;
+}

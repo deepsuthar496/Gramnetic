@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+
+# build output (rebuild with `npm run build`)
+dist/
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# env / local
+.env
+
+# release packaging (local only, never commit the private key)
+crx-key.pem
+key.pem
+stage/
+*.crx
+Gramnetic-*.zip

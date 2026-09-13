@@ -1,0 +1,69 @@
+# Release pipeline: push a tag like v0.2.9 -> CI tests + builds the
+# extension, then attaches Gramnetic-<tag>.zip and Gramnetic-<tag>.crx
+# to the GitHub release.
+#
+# One-time setup: repo Settings -> Secrets and variables -> Actions ->
+# New repository secret named CRX_PRIVATE_KEY, paste the contents of
+# crx-key.pem (kept locally, never committed). This keeps the extension
+# ID stable across releases. Without it the .crx still builds, but with
+# a throwaway key (different ID every release).
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+      - name: Stage extension files
+        run: |
+          rm -rf stage
+          mkdir -p stage
+          cp manifest.json popup.html popup.js styles.css stage/
+          cp -r dist icons stage/
+
+      - name: Make install zip
+        run: |
+          cd stage && zip -r "../Gramnetic-${GITHUB_REF_NAME}.zip" .
+
+      - name: Pack .crx
+        env:
+          CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
+        run: |
+          which google-chrome || (sudo apt-get update && sudo apt-get install -y google-chrome-stable)
+          if [ -n "$CRX_PRIVATE_KEY" ]; then
+            printf '%s' "$CRX_PRIVATE_KEY" > "$RUNNER_TEMP/key.pem"
+            google-chrome --pack-extension="$PWD/stage" --pack-extension-key="$RUNNER_TEMP/key.pem"
+          else
+            echo "::warning::CRX_PRIVATE_KEY secret not set — packing with a throwaway key (extension ID will change every release)"
+            google-chrome --pack-extension="$PWD/stage"
+          fi
+          mv stage.crx "Gramnetic-${GITHUB_REF_NAME}.crx"
+          ls -la "Gramnetic-${GITHUB_REF_NAME}.zip" "Gramnetic-${GITHUB_REF_NAME}.crx"
+
+      - name: Attach assets to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "Gramnetic $TAG" --generate-notes
+          fi
+          gh release upload "$TAG" "Gramnetic-${TAG}.zip" "Gramnetic-${TAG}.crx" --clobber

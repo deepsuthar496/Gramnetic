@@ -1,0 +1,23 @@
+{
+  "name": "gramnetic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node test/engines.test.js && node test/dualpass.test.js",
+    "test:render": "node test/render.test.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dictionary-en": "^4.0.0",
+    "nspell": "^2.1.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "puppeteer-core": "^25.10.0"
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Gramnetic — manual test</title>
+<style>
+  body { font: 14px/1.6 -apple-system, "Segoe UI", Roboto, Arial; max-width: 720px; margin: 32px auto; padding: 0 16px; }
+  textarea, input[type=text] { width: 100%; font: inherit; padding: 10px; }
+  textarea { height: 120px; }
+  [contenteditable] { border: 1px solid #ccc; padding: 10px; min-height: 80px; }
+  code { background: #f4f4f5; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Manual test page</h1>
+  <p>Load this extension unpacked, then type here. Try: <code>I recieved your mesage</code> (red),
+  <code>She go to   school</code> (blue), <code>Hello how are you</code> (blue, hover for <code>?</code>).
+  No Enter needed — pause ~400ms and underlines appear.</p>
+
+  <h2>Textarea</h2>
+  <textarea placeholder="Type here: I recieved your mesage yesterday"></textarea>
+
+  <h2>Input</h2>
+  <input type="text" placeholder="She go to school" />
+
+  <h2>Contenteditable</h2>
+  <div contenteditable="true">Delet this line and type: teh quick brown fox</div>
+</body>
+</html>

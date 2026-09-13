@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  body { width: 270px; margin: 0; padding: 14px; font: 13px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #111; }
+  h1 { font-size: 14px; margin: 0 0 4px; }
+  h1 .ver { font-weight: 400; color: #71717a; font-size: 11px; }
+  p { margin: 4px 0 10px; color: #52525b; font-size: 12px; }
+  #status { font-size: 12px; background: #f4f4f5; border-radius: 8px; padding: 7px 9px; margin: 0 0 8px; color: #3f3f46; }
+  #status.bad { background: #fef2f2; color: #b91c1c; }
+  #status.ok { background: #f0fdf4; color: #15803d; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 8px 0; }
+  .counts { display: flex; gap: 8px; margin: 8px 0; }
+  .pill { flex: 1; border-radius: 8px; padding: 8px; text-align: center; background: #f4f4f5; }
+  .pill b { display: block; font-size: 18px; }
+  .red { color: #dc2626; } .blue { color: #2563eb; }
+  button { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #d4d4d8; background: #fff; cursor: pointer; }
+  button.on { background: #111; color: #fff; border-color: #111; }
+  .legend { font-size: 12px; color: #52525b; }
+  .swatch { display: inline-block; width: 26px; border-bottom: 3px wavy red; vertical-align: middle; }
+  .swatch.b { border-bottom-color: blue; }
+</style>
+</head>
+<body>
+  <h1>Gramnetic <span class="ver" id="ver"></span></h1>
+  <p>Checks locally as you type. No text leaves your device.</p>
+  <div id="status">Starting…</div>
+  <div class="counts">
+    <div class="pill"><b id="cSpell" class="red">0</b><span>spelling</span></div>
+    <div class="pill"><b id="cGram" class="blue">0</b><span>grammar</span></div>
+  </div>
+  <div class="row">
+    <label for="toggle"><b id="toggleLabel">Enabled</b></label>
+    <input type="checkbox" id="toggle" checked />
+  </div>
+  <button id="clear">Clear ignored words</button>
+  <p class="legend" style="margin-top:10px">
+    <span class="swatch"></span> spelling &nbsp; <span class="swatch b"></span> grammar / punctuation<br/>
+    Hover an underline to see what's wrong — click to pin it, ignore, or add to dictionary.
+  </p>
+  <script src="popup.js"></script>
+</body>
+</html>
