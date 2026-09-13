@@ -29,8 +29,8 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm run build # first: tests read dict from dist/
       - run: npm test
-      - run: npm run build
 
       - name: Stage extension files
         run: |
